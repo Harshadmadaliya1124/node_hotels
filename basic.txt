@@ -13,3 +13,7 @@ git add .
 git add .gitignore
 
 npm run server
+
+
+
+download zip and write npm i or npm install run
