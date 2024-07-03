@@ -1,3 +1,4 @@
 node_modules/
-greeting.txt/
-basic.txt/
+greeting.txt
+basic.txt
+.env
