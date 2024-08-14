@@ -15,12 +15,24 @@ const app = express()
 const db = require('./db')
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
+const passport = require('./auth');
 require('dotenv').config();
 
 const PORT = process.env.PORT;
 
+//middleware function
+const logRequest = (req,res,next)=> {
+  console.log(`[${new Date}] Request Made to : ${req.originalUrl}`);
+  next();
+}
 
-app.get('/', function (req, res) {
+app.use(passport.initialize());
+
+app.use(logRequest);
+
+const localAuthMiddleware = passport.authenticate('local', {session: false});
+
+app.get('/',function (req, res) {
   res.send('Hello World') 
 })
 
@@ -30,7 +42,7 @@ app.use('/menuItem',menuItemRoutes);
 
 const personRoutes = require('./routes/personRoutes');
 app.use('/person',personRoutes);
-
+ 
  
 app.listen(PORT, ()=>{
   console.log("port 3000 is listening ")
